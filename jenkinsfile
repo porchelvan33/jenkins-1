@@ -8,13 +8,31 @@ pipeline{
           }
           stage('Build') {
               steps {
-                  sh 'echo Building the project....'
+                  sh 'echo Building the project....>build.log'
               }
           }
           stage('Test') {
                 steps {
-                     sh 'echo running tests.....'
+                     sh 'echo running tests.....>>build.log'
                 }
           }
-     }
-}
+          stage('Deploy') {
+               steps {
+                      sh 'echo Deploying application .....>>build.log'
+               }
+          }
+    }
+post {
+    success {
+          echo 'Pipeline completed successfully!'
+          archiveArtifacts artifacts: 'build.log', fingerprint: true
+    }
+    failure {
+        echo 'Pipeline failed. Check console output for details.'
+    }
+    always {
+       echo 'Pipeline run finished (success or failure).'
+    }
+ }
+}    
+
