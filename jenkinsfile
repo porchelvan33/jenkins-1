@@ -1,5 +1,6 @@
-pipeline{
+pipeline {
     agent any 
+    
     stages {
          stage('Checkout') {
               steps {
@@ -8,12 +9,12 @@ pipeline{
           }
           stage('Build') {
               steps {
-                  sh 'echo Building the project....>build.log'
+                  sh 'echo Building the project....> build.log'
               }
           }
           stage('Test') {
                 steps {
-                     sh 'echo running tests.....>>build.log'
+                     sh 'echo running tests.....>> build.log'
                 }
           }
           stage('Deploy') {
@@ -22,17 +23,17 @@ pipeline{
                }
           }
     }
-post {
-    success {
+    post {
+       success {
           echo 'Pipeline completed successfully!'
           archiveArtifacts artifacts: 'build.log', fingerprint: true
+         }
+         failure {
+             echo 'Pipeline failed. Check console output for details.'
+        }
+        always {
+            echo 'Pipeline run finished (success or failure).'
+        }
     }
-    failure {
-        echo 'Pipeline failed. Check console output for details.'
-    }
-    always {
-       echo 'Pipeline run finished (success or failure).'
-    }
- }
 }    
 
