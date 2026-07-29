@@ -9,17 +9,17 @@ pipeline {
           }
           stage('Build') {
               steps {
-                  sh 'echo Building the project....> build.log'
+                  sh 'echo Building the project... > build.log'
               }
           }
           stage('Test') {
                 steps {
-                     sh 'echo running tests.....>> build.log'
+                     sh 'echo running tests... >> build.log'
                 }
           }
           stage('Deploy') {
                steps {
-                      sh 'echo Deploying application .....>>build.log'
+                      sh 'echo Deploying application ... >> build.log'
                }
           }
     }
