@@ -1,0 +1,20 @@
+pipeline{
+    agent any 
+    stages {
+         stage('Checkout') {
+              steps {
+                  git branch: 'main', url: 'https://github.com/porchelvan33/jenkins-1.git'
+              }
+          }
+          stage('Build') {
+              steps {
+                  sh 'echo Building the project....'
+              }
+          }
+          stage('Test') {
+                steps {
+                     sh 'echo running tests.....'
+                }
+          }
+     }
+}
