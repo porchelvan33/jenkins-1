@@ -24,7 +24,7 @@ pipeline {
          }
      }
     
-     Post {
+     post {
           success {
                  echo 'Pipeline completed succesfully!'
                  archiveArtifacts artifacts: 'build.log', fingerprint:true
