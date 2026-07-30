@@ -1,0 +1,36 @@
+pipeline {
+     agent {label 'linux-agent'}
+     
+     stages {
+         stage('Checkout') {
+           steps {
+                   git branch: 'main" , url:'https://github.com/porchelvan33/jenkins-1.git'
+           }
+         }
+         stage('Build') {
+              steps { 
+                 sh 'echo Building the project... > build.log'
+              }
+         }
+         stage('Test') {
+             steps {
+                  sh 'echo Running tests ... >> build.log'
+             }
+         }
+         stage('Deploy') {
+               steps {
+                   sh 'echo Deploying application... >> build.log'
+               }
+         }
+     }
+    
+     Post {
+          success {
+                 echo 'Pipeline completed succesfully!'
+                 archiveArtifacts artifacts: 'build.log', fingerprint:true
+          }
+          failure {
+               echo 'Pipeline failed. check console output for details.'
+          }
+      }
+}
